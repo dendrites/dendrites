@@ -32,13 +32,16 @@ for script in "$@"; do
   "./$script" ".fifos/$script-r" ".fifos/$script-w" &
 done
 
+echo "init"
 for init in $inits; do
   wait $init
 done
+echo "inited"
 
 # Subscribe to packages and run them
 for script in "$@"; do
   pipe "$script" &
+  echo "readying"
   echo "ready" > ".fifos/$script-r"
 done
 
