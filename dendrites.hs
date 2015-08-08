@@ -58,6 +58,7 @@ axonPipe (Axon n r w) =
      forkIO $ openFileBlocking w ReadMode >>= putMVar wPM
      forkIO $ openFileBlocking r WriteMode >>= putMVar rPM
      -- Wait for each fifo to have other managers before proceeding
+     putStr ""
      rP <- takeMVar rPM
      wP <- takeMVar wPM
      return $ AxonPipe n (Pipe r rP) (Pipe w wP)
